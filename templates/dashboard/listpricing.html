@@ -1,0 +1,29 @@
+{% extends 'layout/dashboard.html' %} {% load static %} {% block body %}
+<!-- Content -->
+<div class="container-fluid flex-grow-1 container-p-y">
+  <!-- Layout Demo -->
+  <h1>Select Pricing</h1>
+  <div class="card-body">
+    <div class="col-lg-12 mb-4 mb-xl-0">
+      <div class="demo-inline-spacing mt-3">
+        <div class="list-group">
+          {% for price in pricing %}
+          <a
+            href="{% url 'updatepricing' price.id %}"
+            class="list-group-item list-group-item-action"
+            ><h5>
+              {{price}}
+              <button align="right" type="button" class="btn btn-primary">
+                Primary
+              </button>
+            </h5></a
+          >
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Layout Demo -->
+</div>
+<!-- / Content -->
+{% endblock %}

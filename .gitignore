@@ -1,0 +1,12 @@
+skoloapp/static/landing/img/banner_image_3.svg:Zone.Identifier
+skoloapp/static/landing/img/banner_image_4.svg:Zone.Identifier
+MicrosoftTeams-image.pngZone.Identifier
+*:Zone.Identifier
+__pycache__/
+skoloapp/__pycache__/*
+skoloapp/dashboard/__pycache__/*
+skoloapp/ftthapp/__pycache__/*
+skoloapp/skoloapp/__pycache__/*
+venv
+.env
+skoloapp/.env
