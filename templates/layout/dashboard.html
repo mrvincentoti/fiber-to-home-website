@@ -297,6 +297,33 @@
                 </li>
               </ul>
             </li>
+            <!--Coverage-->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Authentications">Coverage</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="{% url 'addcoverage' %}"
+                    class="menu-link"
+                    target="_blank"
+                  >
+                    <div data-i18n="Basic">Add Location</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="{% url 'listcoverage' %}"
+                    class="menu-link"
+                    target="_blank"
+                  >
+                    <div data-i18n="Basic">Edit Locations</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <!-- Layouts -->
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Blog Assistant</span>

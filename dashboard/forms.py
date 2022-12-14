@@ -311,3 +311,50 @@ class FaqsForm(forms.ModelForm):
     class Meta:
         model = Faqs
         fields = ['title', 'content']
+
+
+class CoverageForm(forms.ModelForm):
+
+    coverage_name = forms.CharField(
+        required=True,
+        label='Coverage Name',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Coverage Name'}),
+    )
+
+    strength = forms.CharField(
+        required=True,
+        label='Coverage Strength',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Strength'}),
+    )
+
+    status = forms.IntegerField(
+        required=True,
+        label='Coverage Status',
+        widget=forms.NumberInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Enter Status', 'min':0, 'max':1}), 
+    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('coverage_name', css_class='form-group col-md-12'),
+            ),
+
+            Row(
+                Column('strength', css_class='form-group col-md-12')
+            ),
+
+            Row(
+                Column('status', css_class='form-group col-md-12')
+            ),
+
+            Submit('submit', 'Save Changes',
+                   css_class="btn btn-primary me-2 col-md-2")
+        )
+
+    class Meta:
+        model = Coverage
+        fields = ['coverage_name', 'strength', 'status']

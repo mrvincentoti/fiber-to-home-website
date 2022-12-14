@@ -91,3 +91,12 @@ class Faqs(models.Model):
 
     def __str__(self):
         return self.title
+
+class Coverage(models.Model):
+
+    coverage_name = models.CharField(max_length=100)
+    strength = models.CharField(max_length=100)
+    status = models.IntegerField(max_length=100, default = 0)
+
+    def __str__(self):
+        return self.coverage_name

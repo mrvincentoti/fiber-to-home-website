@@ -32,6 +32,7 @@ def home(request):
 def contact(request):
     context = {}
     return render(request, 'ftth/contact.html', context)
+    
 
 
 def plan(request, id):
@@ -63,3 +64,30 @@ def plan(request, id):
         return render(request, 'ftth/plan.html', context)
 
     return render(request, 'ftth/plan.html', context)
+
+def getlocation(request):
+    if request.is_ajax and request.method == "GET":
+        location_id = request.GET.get("location_id", None)
+        location = Coverage.objects.filter(id=location_id).values()
+
+        client_name = request.GET.get("client_name", None)
+        client_email = request.GET.get("client_email", None)
+        client_phone = request.GET.get("client_phone", None)
+
+        subject = "FTTH Service Enquiry"
+        msg = f'You have a new FTTH Service Enquiry '
+        msg += f'{client_name} will like to know if {location[0]["coverage_name"]} is within our area of coverage\n\n'
+        msg += f'See the details below:\n'
+        msg += f'Phone: {client_phone}\n'
+        msg += f'Email: {client_email}\n\n'
+        msg += f'Thank You!'
+
+        send_mail(
+            subject=subject,
+            message=msg,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[settings.DEFAULT_TO_EMAIL]
+        )
+
+        return JsonResponse({"data": list(location)}, status=200)
+    return JsonResponse({"error": "Not Found"}, status=404)

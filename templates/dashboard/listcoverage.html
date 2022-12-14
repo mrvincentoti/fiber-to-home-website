@@ -1,0 +1,54 @@
+{% extends 'layout/dashboard.html' %} {% load static %} {% block body %}
+<!-- Content -->
+ <div class="container-fluid flex-grow-1 container-p-y">
+  <!-- Layout Demo -->
+  <div class="card-body">
+    <div class="col-lg-12 mb-4 mb-xl-0">
+        {% comment "" %}<table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Strength</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for location in coverage %}
+              <tr>
+                <th scope="row">{{location.id}}</th>
+                <td>{{location.coverage_name}}</td>
+                <td>{{location.strength}}</td>
+                <td>{{location.status}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table> {% endcomment %}
+      <div class="demo-inline-spacing mt-3">
+        <!-- Layout Demo -->
+        <h1>Select Coverage</h1>
+        <div class="list-group">
+        {% for location in coverage %}
+          <a
+            href="{% url 'updatecoverage' location.id %}"
+            class="list-group-item list-group-item-action"
+            ><h5>
+              {{location}}
+            </h5></a
+          ><a 
+          href="{% url 'deletecoverage' location.id %}"
+          class="list-group-item list-group-item-action">
+            <button align="right" type="reset" class="btn btn-primary">
+              Delete
+            </button>
+          </a
+          >
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Layout Demo -->
+</div>
+<!-- / Content -->
+{% endblock %}
