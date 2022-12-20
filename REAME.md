@@ -18,7 +18,7 @@
 5. activate the virtual environment on linux `source venv/bin/activate` on windows `venv\Scripts\activate`
 6. install dependencies `pip install -r requirements.txt`
 
-###### FREEZE REQUIREMENTS
+###### FREEZE PROJECT REQUIREMENTS
 
 1. run this command in the same location wehre requirement.txt is `pip freeze > requirements.txt`
 
