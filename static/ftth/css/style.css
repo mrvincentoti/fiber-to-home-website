@@ -1357,6 +1357,7 @@ html,body{
   }
 }
 @media (min-width: 992px) {
+  
   .col-lg-auto {
     flex: 0 0 auto;
     width: auto;
@@ -6084,6 +6085,7 @@ textarea.form-control-lg {
 
 .bg-white {
   background-color: #fff !important;
+  height: 100%;
 }
 
 .bg-transparent {
@@ -9839,6 +9841,7 @@ blockquote::before {
 }
 
 .icon-box-item {
+  height: 289px !important;
   z-index: 3;
 }
 .icon-box-item .block {
