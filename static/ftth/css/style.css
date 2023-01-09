@@ -9613,6 +9613,12 @@ blockquote::before {
     overflow: hidden;
   }
 }
+@media (max-width: 600px) {
+  .custom-padding {
+    margin-top: 600px !important; 
+  }
+}
+
 .homepage_tab .payment_info_tab .active {
   color: #fff !important;
 }
