@@ -9615,7 +9615,7 @@ blockquote::before {
 }
 @media (max-width: 600px) {
   .custom-padding {
-    margin-top: 600px !important; 
+    margin-top: 800px !important; 
   }
 }
 
