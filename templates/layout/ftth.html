@@ -163,5 +163,88 @@
 <!-- Main Script -->
 <script src="{%static 'ftth/js/script.js' %}"></script>
 
+<script type="text/javascript">
+	// Ajax request to check availability
+	 $("#checkin").click(function (e) {
+	   var valLocate = document.getElementById("loan_locate");
+	   var location_id = valLocate.options[valLocate.selectedIndex].value;
+	   var client_name = document.getElementById('client_name').value;
+	   var client_email = document.getElementById('client_email').value;
+	   var client_phone = document.getElementById('client_phone').value;
+	   
+	   $.ajax({
+		 type: 'GET',
+		 url: "{% url 'getlocation' %}",
+		 data: { 
+		   "location_id": location_id,
+		   "client_name": client_name,
+		   "client_email": client_email,
+		   "client_phone": client_phone
+		},
+		 success: function (response) {
+		   if(response.data){
+			   var msg = "<h4>Thank You!</h4>";
+			   if((response.data[0].strength).toLowerCase() == "high" || (response.data[0].strength).toLowerCase() == "low"){
+				   msg += '<img style="width: 70px;" src="{% static 'ftth/images/success.jpg' %}"">';
+				   msg += "<p>Our service is available in your area.</p>";
+			   }else{
+				   msg += '<img style="width: 70px;" src="{% static 'ftth/images/warning.png' %}"">';
+				   msg += "<p>Our service is not available in your area at the moment.</p>"
+			   }
+			   msg += "<p>Someone will contact you shortly to give you more details.</p>"
+			   var coverageStatement = document.getElementById('statementModal').innerHTML = msg;
+   
+			   // send email to KAM
+			   
+   
+			   $('#applyLoan').modal('hide');
+			   $('#modalStats').modal('show');
+		   }else{
+			   console.log(response.error);
+			   var msg = "<h4>Sorry!</h4>";
+			   msg += '<img style="width: 70px;" src="{% static 'ftth/images/warning.png' %}"">';
+			   msg += "<p>Something went wrong, Please try again.</p>"
+			   var coverageStatement = document.getElementById('statementModal').innerHTML = msg;
+   
+			   $('#applyLoan').modal('hide');
+			   $('#modalStats').modal('show');
+		   }
+		 },
+		 error: function (response) {}
+	   })
+	   // $('#applyLoan').modal('hide');
+	   // var coverage = {"id":1, "name":"wuse","coverage":"High"}
+	   // var coverage1 = ("The Coverage is " + coverage.coverage);
+	   // console.log(coverage1);
+   
+	   // var coverageStatement = document.getElementById('statementModal').innerHTML = coverage1;
+   
+	   // $('#modalStats').modal('show');
+   
+   
+	   //e.preventDefault();
+   
+   
+   
+	   /*var valLocate = document.getElementById("loan_locate");
+	   var text = valLocate.options[valLocate.selectedIndex].value;
+   
+	   console.log(text);
+	 
+	   var valName = document.getElementById('loan_name').value;
+   
+	   console.log(valName);
+   
+	   
+	   var valEmail = document.getElementById('loan_email_address').value;
+	   console.log(valEmail);
+   
+	   var valNum = document.getElementById('loan_number').value;
+	   console.log(valNum);
+   
+	   */
+   
+	 });
+   </script>
 </body>
 </html>
