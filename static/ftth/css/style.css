@@ -9613,6 +9613,14 @@ blockquote::before {
     overflow: hidden;
   }
 }
+@media (max-width: 600px) {
+  /* .custom-padding {
+    margin-top: 800px !important;
+    background-color: #e4230d !important;
+  } */
+
+}
+
 .homepage_tab .payment_info_tab .active {
   color: #fff !important;
 }
@@ -10207,7 +10215,7 @@ textarea.form-control {
 
 #speed-background{
   width: 100%;
-    height: 100%;
+    
     box-sizing: border-box;
 }
 

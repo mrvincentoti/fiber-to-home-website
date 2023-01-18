@@ -169,6 +169,7 @@ def listcoverage(request):
     context = {
         'coverage': coverage
     }
+    print(context)
     return render(request, 'dashboard/listcoverage.html', context)
 
 def updatecoverage(request, coverage_id):
