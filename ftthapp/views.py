@@ -18,6 +18,7 @@ def home(request):
     pricing = Pricing.objects.all().order_by('id')
     feedback = Feedback.objects.all()
     faqs = Faqs.objects.all()
+    coverage = Coverage.objects.all()
 
     context = {
         'homes': homes,
@@ -25,6 +26,7 @@ def home(request):
         'pricing': pricing,
         'feedback': feedback,
         'faqs': faqs,
+        'coverage': coverage
     }
     return render(request, '../templates/ftth/home.html', context=context)
 

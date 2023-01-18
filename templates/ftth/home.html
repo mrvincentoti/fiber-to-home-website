@@ -19,7 +19,7 @@
                 <select class="form-select form-control shadow-none" id="loan_locate" aria-label="Default select example" name="location" required>
                   <option>Choose your location</option>
                   {% for coverage in coverage %}
-                  <option value="{{coverage.id}}">{{coverage.coverage_name}}</option>
+                  <option value="{{coverage_id}}">{{coverage.coverage_name}}</option>
                   {% endfor %}
                 </select>
               </div>
