@@ -11,7 +11,11 @@ from django.http import JsonResponse
 from dashboard.models import *
 
 # Create your views here.
+from gspread import service_account
+import environ
 
+env = environ.Env()
+environ.Env.read_env()  # Assuming you have a .env file with credentials
 
 def home(request):
     homes = Home.objects.all()
@@ -36,7 +40,10 @@ def contact(request):
     context = {}
     return render(request, 'ftth/contact.html', context)
     
-
+def update_google_sheet(data):
+    gc = service_account(filename=env('GOOGLE_APPLICATION_CREDENTIALS'))
+    sheet = gc.open_by_key(env('GOOGLE_SHEET_ID')).sheet1
+    sheet.append_row(data)
 
 def plan(request, id):
     pricing = Pricing.objects.all().order_by('id')
@@ -63,6 +70,20 @@ def plan(request, id):
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[settings.DEFAULT_TO_EMAIL]
         )
+
+        # Construct the data dictionary for Google Sheet
+        data = {
+            'Name': request.POST["fullname"],
+            'Phone': request.POST["phone"],
+            'Email': request.POST["email"],
+            'Address': request.POST["address"],
+            'Plan interested in': request.POST["product"],
+            'Home type': request.POST["home_type"],
+        }
+
+        # Update Google Sheet
+        update_google_sheet(list(data.values()))
+
         messages.success(request, 'Service request submitted successfully.')
         return render(request, 'ftth/plan.html', context)
 
