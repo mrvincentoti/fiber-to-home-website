@@ -100,19 +100,21 @@ def getlocation(request):
         client_email = request.GET.get("client_email", None)
         client_phone = request.GET.get("client_phone", None)
 
-        subject = "FTTH Service Enquiry"
-        msg = f'You have a new FTTH Service Enquiry '
+        subject = "New Campaign lead"
+        msg = f'You have a new Service Enquiry. kindly update on Odoo.'
         msg += f'{client_name} will like to know if {location[0]["coverage_name"]} is within our area of coverage\n\n'
         msg += f'See the details below:\n'
         msg += f'Phone: {client_phone}\n'
         msg += f'Email: {client_email}\n\n'
         msg += f'Thank You!'
 
+        recipient_list = ['sales@layer3.com.ng', 'john.onuorah@amplify.ng']
+
         send_mail(
             subject=subject,
             message=msg,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_TO_EMAIL]
+            recipient_list= recipient_list,
         )
 
         return JsonResponse({"data": list(location)}, status=200)
