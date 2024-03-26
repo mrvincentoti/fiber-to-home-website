@@ -76,9 +76,9 @@ def plan(request, id):
             'Name': request.POST["fullname"],
             'Phone': request.POST["phone"],
             'Email': request.POST["email"],
-            'Address': request.POST["address"],
-            'Plan interested in': request.POST["product"],
-            'Home type': request.POST["home_type"],
+            'Address': request.POST["product"],
+            'Plan interested in': request.POST["home_type"],
+            'Home type': request.POST["address"],
         }
 
         # Update Google Sheet
