@@ -64,7 +64,7 @@ def plan(request, id):
         msg += f'Plan interested in: {request.POST["product"]}\n'
         msg += f'Home type: {request.POST["home_type"]}\n'
 
-        recipient_list = ['sendmail@fuhso.edu.ng', 'john.onuorah@amplify.ng']
+        recipient_list = ['sales@layer3.com.ng', 'john.onuorah@amplify.ng']
 
         send_mail(
             subject=subject,
