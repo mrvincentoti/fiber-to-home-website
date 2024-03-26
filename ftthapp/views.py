@@ -52,10 +52,10 @@ def plan(request, id):
         'prices': pricing,
     }
     if request.method == 'POST':
-        subject = "FTTH Service Request"
+        subject = "New Campaign lead "
         name = request.POST["fullname"]
         email = request.POST["email"]
-        msg = f'You have a new FTTH Service request'
+        msg = f'You have a new request. kindly update on Odoo.'
         msg += f'\nDetails:\n'
         msg += f'Name: {request.POST["fullname"]}\n'
         msg += f'Phone: {request.POST["phone"]}\n'
