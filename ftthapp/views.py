@@ -64,11 +64,13 @@ def plan(request, id):
         msg += f'Plan interested in: {request.POST["product"]}\n'
         msg += f'Home type: {request.POST["home_type"]}\n'
 
+        recipient_list = ['sendmail@fuhso.edu.ng', 'john.onuorah@amplify.ng']
+
         send_mail(
             subject=subject,
             message=msg,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_TO_EMAIL]
+            recipient_list= recipient_list,
         )
 
         # Construct the data dictionary for Google Sheet
