@@ -40,10 +40,12 @@ def contact(request):
     context = {}
     return render(request, 'ftth/contact.html', context)
     
-def update_google_sheet(data):
+def update_google_sheet(data, sheet_id):
     gc = service_account(filename=env('GOOGLE_APPLICATION_CREDENTIALS'))
-    sheet = gc.open_by_key(env('GOOGLE_SHEET_ID')).sheet1
+    sheet = gc.open_by_key(sheet_id).sheet1
     sheet.append_row(data)
+    return JsonResponse({"message": "Success"}, status=200)
+    
 
 def plan(request, id):
     pricing = Pricing.objects.all().order_by('id')
@@ -64,7 +66,8 @@ def plan(request, id):
         msg += f'Plan interested in: {request.POST["product"]}\n'
         msg += f'Home type: {request.POST["home_type"]}\n'
 
-        recipient_list = ['salesunit@layer3.com.ng', 'john.onuorah@amplify.ng']
+        # recipient_list = ['salesunit@layer3.com.ng', 'john.onuorah@amplify.ng']
+        recipient_list = ['wisdom.george@layer3.com.ng', 'wisgeorge.wg@gmail.com']
 
         send_mail(
             subject=subject,
@@ -84,7 +87,7 @@ def plan(request, id):
         }
 
         # Update Google Sheet
-        update_google_sheet(list(data.values()))
+        update_google_sheet(list(data.values()), env('GOOGLE_SHEET_ID'))
 
         messages.success(request, 'Service request submitted successfully.')
         return render(request, 'ftth/plan.html', context)
@@ -92,7 +95,8 @@ def plan(request, id):
     return render(request, 'ftth/plan.html', context)
 
 def getlocation(request):
-    if request.is_ajax and request.method == "GET":
+    # if request.is_ajax and request.method == "GET":
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
         location_id = request.GET.get("location_id", None)
         location = Coverage.objects.filter(id=location_id).values()
 
@@ -108,7 +112,8 @@ def getlocation(request):
         msg += f'Email: {client_email}\n\n'
         msg += f'Thank You!'
 
-        recipient_list = ['salesunit@layer3.com.ng', 'john.onuorah@amplify.ng']
+        # recipient_list = ['salesunit@layer3.com.ng', 'john.onuorah@amplify.ng']
+        recipient_list = ['wisdom.george@layer3.com.ng', 'wisgeorge.wg@gmail.com']
 
         send_mail(
             subject=subject,
@@ -116,6 +121,16 @@ def getlocation(request):
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list= recipient_list,
         )
+
+        # Construct the data dictionary for Google Sheet
+        data1 = {
+            'Location': location[0]["coverage_name"],
+            'Name': client_name,
+            'Email': client_email,
+            'Phone': client_phone,
+        }
+
+        update_google_sheet(list(data1.values()), env('GOOGLE_SHEET_2_ID'))
 
         return JsonResponse({"data": list(location)}, status=200)
     return JsonResponse({"error": "Not Found"}, status=404)
