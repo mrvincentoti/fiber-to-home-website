@@ -95,8 +95,8 @@ def plan(request, id):
     return render(request, 'ftth/plan.html', context)
 
 def getlocation(request):
-    # if request.is_ajax and request.method == "GET":
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
+    if request.is_ajax and request.method == "GET":
+    # if request.headers.get('X-Requested-With') == 'XMLHttpRequest' and request.method == "GET":
         location_id = request.GET.get("location_id", None)
         location = Coverage.objects.filter(id=location_id).values()
 
